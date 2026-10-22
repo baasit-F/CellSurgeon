@@ -71,6 +71,28 @@
   nav.addEventListener("click", function (e) { if (e.target.closest("a")) setMenu(false); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") setMenu(false); });
 
+  /* ---------- scroll reveal ---------- */
+  // Content is visible by default; only once JS runs do blocks start hidden and slide in.
+  if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+      });
+    }, { rootMargin: "0px 0px -8% 0px" });
+    window.TechCareReveal = function (root) {
+      (root || document).querySelectorAll("[data-reveal] > *").forEach(function (el, i) {
+        if (el.classList.contains("reveal")) return;
+        el.classList.add("reveal");
+        el.style.setProperty("--d", (i % 4) * 80 + "ms");
+        io.observe(el);
+      });
+    };
+  } else {
+    window.TechCareReveal = function () {};
+  }
+
+  window.TechCareReveal();
+
   /* ---------- FAQ accordion (same content as the chat helper) ---------- */
   var faqList = document.getElementById("faq-list");
   if (faqList && window.TECHCARE_FAQ) {
@@ -86,129 +108,133 @@
 
   /* ---------- quote form ---------- */
   var form = document.getElementById("quote-form");
-  var done = document.querySelector(".quote-done");
-  var statusEl = form.querySelector(".form-status");
-  var problem = form.elements.problem;
-  var submitBtn = form.querySelector("button[type=submit]");
+  if (form) initQuote(form);
 
-  // Problem chips add/remove a line in the description box.
-  form.querySelectorAll(".chip").forEach(function (chip) {
-    chip.setAttribute("aria-pressed", "false");
-    chip.addEventListener("click", function () {
-      var label = chip.dataset.problem;
-      var lines = problem.value.split("\n").map(function (l) { return l.trim(); }).filter(Boolean);
-      var idx = lines.indexOf(label);
-      if (idx > -1) lines.splice(idx, 1); else lines.unshift(label);
-      problem.value = lines.join("\n") + (lines.length && idx === -1 ? "\n" : "");
-      chip.setAttribute("aria-pressed", String(idx === -1));
-      clearError("problem");
-      problem.focus();
-      problem.setSelectionRange(problem.value.length, problem.value.length);
+  function initQuote(form) {
+    var done = document.querySelector(".quote-done");
+    var statusEl = form.querySelector(".form-status");
+    var problem = form.elements.problem;
+    var submitBtn = form.querySelector("button[type=submit]");
+
+    // Problem chips add/remove a line in the description box.
+    form.querySelectorAll(".chip").forEach(function (chip) {
+      chip.setAttribute("aria-pressed", "false");
+      chip.addEventListener("click", function () {
+        var label = chip.dataset.problem;
+        var lines = problem.value.split("\n").map(function (l) { return l.trim(); }).filter(Boolean);
+        var idx = lines.indexOf(label);
+        if (idx > -1) lines.splice(idx, 1); else lines.unshift(label);
+        problem.value = lines.join("\n") + (lines.length && idx === -1 ? "\n" : "");
+        chip.setAttribute("aria-pressed", String(idx === -1));
+        clearError("problem");
+        problem.focus();
+        problem.setSelectionRange(problem.value.length, problem.value.length);
+      });
     });
-  });
 
-  var rules = {
-    device: function (v) { return v.length >= 2 || "Tell us the device or model (e.g. iPhone 13)."; },
-    problem: function (v) { return v.length >= 3 || "Let us know what's wrong with it."; },
-    name: function (v) { return v.length >= 2 || "Please enter your name."; },
-    phone: function (v) { return v.replace(/\D/g, "").length >= 10 || "Enter a phone number with area code."; },
-    email: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) || "Enter a valid email address."; }
-  };
-
-  function setError(name, msg) {
-    var input = form.elements[name];
-    input.closest(".field").classList.add("has-error");
-    input.setAttribute("aria-invalid", "true");
-    form.querySelector('[data-err-for="' + name + '"]').textContent = msg;
-  }
-  function clearError(name) {
-    var input = form.elements[name];
-    input.closest(".field").classList.remove("has-error");
-    input.removeAttribute("aria-invalid");
-    form.querySelector('[data-err-for="' + name + '"]').textContent = "";
-  }
-  Object.keys(rules).forEach(function (name) {
-    form.elements[name].addEventListener("input", function () { clearError(name); });
-  });
-
-  function validate() {
-    var first = null;
-    Object.keys(rules).forEach(function (name) {
-      var res = rules[name](form.elements[name].value.trim());
-      if (res === true) clearError(name);
-      else { setError(name, res); first = first || form.elements[name]; }
-    });
-    if (first) first.focus();
-    return !first;
-  }
-
-  function mailtoFallback(data) {
-    var body = "Device / model: " + data.device + "\n\nProblem:\n" + data.problem +
-      "\n\nName: " + data.name + "\nPhone: " + data.phone + "\nEmail: " + data.email;
-    return "mailto:" + C.email + "?subject=" + encodeURIComponent("Repair quote request — " + data.device) +
-      "&body=" + encodeURIComponent(body);
-  }
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    statusEl.textContent = "";
-    statusEl.className = "form-status";
-    if (!validate()) return;
-
-    var data = {
-      device: form.elements.device.value.trim(),
-      problem: form.elements.problem.value.trim(),
-      name: form.elements.name.value.trim(),
-      phone: form.elements.phone.value.trim(),
-      email: form.elements.email.value.trim()
+    var rules = {
+      device: function (v) { return v.length >= 2 || "Tell us the device or model (e.g. iPhone 13)."; },
+      problem: function (v) { return v.length >= 3 || "Let us know what's wrong with it."; },
+      name: function (v) { return v.length >= 2 || "Please enter your name."; },
+      phone: function (v) { return v.replace(/\D/g, "").length >= 10 || "Enter a phone number with area code."; },
+      email: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) || "Enter a valid email address."; }
     };
 
-    // Bots fill the hidden field; quietly pretend it worked.
-    if (form.elements["bot-field"].value) { showDone(data.device); return; }
-
-    submitBtn.disabled = true;
-    submitBtn.querySelector(".btn-label").textContent = "Sending…";
-
-    fetch(C.quoteEndpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(new FormData(form)).toString()
-    })
-      .then(function (r) { if (!r.ok) throw new Error("Request failed: " + r.status); })
-      .then(function () { showDone(data.device); })
-      .catch(function () {
-        statusEl.className = "form-status is-error";
-        statusEl.innerHTML = "Sorry — that didn't go through. You can <a href=\"" + mailtoFallback(data) +
-          "\">send it by email instead</a> or call <a href=\"" + C.phoneHref + "\">" + C.phone + "</a>.";
-      })
-      .finally(function () {
-        submitBtn.disabled = false;
-        submitBtn.querySelector(".btn-label").textContent = "Send my quote request";
-      });
-  });
-
-  function showDone(device) {
-    done.querySelector("[data-done-device]").textContent = device;
-    form.hidden = true;
-    done.hidden = false;
-    done.querySelector("h3").setAttribute("tabindex", "-1");
-    done.querySelector("h3").focus();
-  }
-
-  done.querySelector("[data-quote-reset]").addEventListener("click", function () {
-    form.reset();
-    form.querySelectorAll(".chip").forEach(function (c) { c.setAttribute("aria-pressed", "false"); });
-    done.hidden = true;
-    form.hidden = false;
-    form.elements.device.focus();
-  });
-
-  // Lets the chat helper jump to the form (and prefill the device if it knows it).
-  window.TechCareQuote = {
-    open: function (device) {
-      if (device) form.elements.device.value = device;
-      document.getElementById("quote").scrollIntoView({ behavior: "smooth" });
-      setTimeout(function () { (device ? problem : form.elements.device).focus({ preventScroll: true }); }, 500);
+    function setError(name, msg) {
+      var input = form.elements[name];
+      input.closest(".field").classList.add("has-error");
+      input.setAttribute("aria-invalid", "true");
+      form.querySelector('[data-err-for="' + name + '"]').textContent = msg;
     }
-  };
+    function clearError(name) {
+      var input = form.elements[name];
+      input.closest(".field").classList.remove("has-error");
+      input.removeAttribute("aria-invalid");
+      form.querySelector('[data-err-for="' + name + '"]').textContent = "";
+    }
+    Object.keys(rules).forEach(function (name) {
+      form.elements[name].addEventListener("input", function () { clearError(name); });
+    });
+
+    function validate() {
+      var first = null;
+      Object.keys(rules).forEach(function (name) {
+        var res = rules[name](form.elements[name].value.trim());
+        if (res === true) clearError(name);
+        else { setError(name, res); first = first || form.elements[name]; }
+      });
+      if (first) first.focus();
+      return !first;
+    }
+
+    function mailtoFallback(data) {
+      var body = "Device / model: " + data.device + "\n\nProblem:\n" + data.problem +
+        "\n\nName: " + data.name + "\nPhone: " + data.phone + "\nEmail: " + data.email;
+      return "mailto:" + C.email + "?subject=" + encodeURIComponent("Repair quote request — " + data.device) +
+        "&body=" + encodeURIComponent(body);
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      statusEl.textContent = "";
+      statusEl.className = "form-status";
+      if (!validate()) return;
+
+      var data = {
+        device: form.elements.device.value.trim(),
+        problem: form.elements.problem.value.trim(),
+        name: form.elements.name.value.trim(),
+        phone: form.elements.phone.value.trim(),
+        email: form.elements.email.value.trim()
+      };
+
+      // Bots fill the hidden field; quietly pretend it worked.
+      if (form.elements["bot-field"].value) { showDone(data.device); return; }
+
+      submitBtn.disabled = true;
+      submitBtn.querySelector(".btn-label").textContent = "Sending…";
+
+      fetch(C.quoteEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(new FormData(form)).toString()
+      })
+        .then(function (r) { if (!r.ok) throw new Error("Request failed: " + r.status); })
+        .then(function () { showDone(data.device); })
+        .catch(function () {
+          statusEl.className = "form-status is-error";
+          statusEl.innerHTML = "Sorry — that didn't go through. You can <a href=\"" + mailtoFallback(data) +
+            "\">send it by email instead</a> or call <a href=\"" + C.phoneHref + "\">" + C.phone + "</a>.";
+        })
+        .finally(function () {
+          submitBtn.disabled = false;
+          submitBtn.querySelector(".btn-label").textContent = "Send my quote request";
+        });
+    });
+
+    function showDone(device) {
+      done.querySelector("[data-done-device]").textContent = device;
+      form.hidden = true;
+      done.hidden = false;
+      done.querySelector("h3").setAttribute("tabindex", "-1");
+      done.querySelector("h3").focus();
+    }
+
+    done.querySelector("[data-quote-reset]").addEventListener("click", function () {
+      form.reset();
+      form.querySelectorAll(".chip").forEach(function (c) { c.setAttribute("aria-pressed", "false"); });
+      done.hidden = true;
+      form.hidden = false;
+      form.elements.device.focus();
+    });
+
+    // Lets the chat helper jump to the form (and prefill the device if it knows it).
+    window.TechCareQuote = {
+      open: function (device) {
+        if (device) form.elements.device.value = device;
+        document.getElementById("quote").scrollIntoView({ behavior: "smooth" });
+        setTimeout(function () { (device ? problem : form.elements.device).focus({ preventScroll: true }); }, 500);
+      }
+    };
+  }
 })();

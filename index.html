@@ -72,6 +72,7 @@
       <nav class="nav" id="nav" aria-label="Main">
         <a href="#repairs">Repairs</a>
         <a href="#shop">Hobby Shop</a>
+        <a href="/reviews.html">Reviews</a>
         <a href="#faq">FAQ</a>
         <a href="#visit">Visit</a>
         <a class="btn btn-yellow nav-cta" href="#quote">Free repair quote</a>
@@ -91,6 +92,9 @@
         <div class="hero-copy">
           <p class="eyebrow">Kirkwood Hwy · Wilmington, Delaware</p>
           <h1>Fix your phone.<br><span class="hl">Grow your collection.</span></h1>
+          <span class="sparkle sparkle-1" aria-hidden="true"></span>
+          <span class="sparkle sparkle-2" aria-hidden="true"></span>
+          <span class="sparkle sparkle-3" aria-hidden="true"></span>
           <p class="lede">Expert phone &amp; tablet repair at the back counter. Pokémon TCG, anime and collectibles up front. Buy, sell and trade — all under one roof.</p>
           <div class="hero-ctas">
             <a class="btn btn-navy btn-lg" href="#quote">Get a free repair quote
@@ -98,6 +102,11 @@
             </a>
             <a class="btn btn-ghost btn-lg" href="https://maps.app.goo.gl/MrAmSJkTdqbsVuTa9" target="_blank" rel="noopener">Get directions</a>
           </div>
+          <a class="rating-badge" href="/reviews.html">
+            <span class="rating-stars" aria-hidden="true">★★★★★</span>
+            <span><strong data-rating>4.9</strong> on Google · <span data-review-count>218</span> reviews</span>
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
           <ul class="hero-points">
             <li>Free, no-obligation quotes</li>
             <li>Quick turnaround on common fixes</li>
@@ -131,7 +140,7 @@
           <p>Our repair bench is right here in the shop — no mail-in, no waiting weeks. Most common fixes are quick turnarounds.</p>
         </div>
 
-        <div class="services">
+        <div class="services" data-reveal>
           <article class="service">
             <div class="service-icon">
               <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="10" y="3" width="20" height="34" rx="4" fill="none" stroke="currentColor" stroke-width="2.6"/><path d="M14 10l6 7-3 4 6 6M24 12l-3 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -161,8 +170,9 @@
             <p>Not sure what's wrong? We'll take a look and give you a free quote — no obligation.</p>
           </article>
         </div>
+        <p class="services-more"><strong>Also:</strong> back glass · home buttons · screen protectors · laptops — <a href="#quote">just ask</a></p>
 
-        <ol class="steps">
+        <ol class="steps" data-reveal>
           <li>
             <span class="step-num">1</span>
             <div><h3>Tell us what's wrong</h3><p>Send your device and the problem through the quote form below.</p></div>
@@ -176,6 +186,20 @@
             <div><h3>Stop by the shop</h3><p>Bring it in during open hours and we'll get you fixed up.</p></div>
           </li>
         </ol>
+      </div>
+    </section>
+
+    <!-- ===== Reviews teaser ===== -->
+    <section class="section reviews-teaser">
+      <div class="wrap">
+        <div class="teaser-head">
+          <div>
+            <p class="kicker">Rated <span data-rating>4.9</span>★ by <span data-review-count>218</span> customers</p>
+            <h2>Wilmington's <span class="hl-blue">favorite</span> repair counter</h2>
+          </div>
+          <a class="btn btn-navy" href="/reviews.html">See all reviews</a>
+        </div>
+        <div class="review-grid review-grid--teaser" id="review-teaser" data-reveal><!-- featured cards from reviews-data.js --></div>
       </div>
     </section>
 
@@ -278,7 +302,7 @@
           <p class="kicker">Pokémon TCG &amp; collectibles</p>
           <h2>Your local <span class="hl-blue">card shop.</span></h2>
           <p>Whether you're chasing a chase rare, cracking your first ETB or starting a collection — come hang out. Sealed product, singles, accessories and a friendly counter to buy, sell and trade.</p>
-          <ul class="product-grid">
+          <ul class="product-grid" data-reveal>
             <li><strong>Sealed</strong> Elite Trainer Boxes, booster boxes, tins, premium collections</li>
             <li><strong>Singles</strong> From binder fillers to the cards you've been hunting</li>
             <li><strong>Supplies</strong> Sleeves, binders, deck boxes, top loaders</li>
@@ -295,7 +319,7 @@
     <!-- ===== Gallery ===== -->
     <section class="gallery" aria-label="Inside the shop">
       <div class="wrap">
-        <div class="gallery-grid">
+        <div class="gallery-grid" data-reveal>
           <figure>
             <img src="/images/interior-cases.jpg" alt="Display case of Pokémon singles and sealed product with a trading table" width="1050" height="1400" loading="lazy">
             <figcaption>Singles, sealed &amp; a table to trade at</figcaption>
@@ -416,7 +440,9 @@
 
   <script src="/js/config.js"></script>
   <script src="/js/faq-data.js"></script>
+  <script src="/js/reviews-data.js"></script>
   <script src="/js/site.js"></script>
+  <script src="/js/reviews.js"></script>
   <script src="/js/chat.js"></script>
 </body>
 </html>

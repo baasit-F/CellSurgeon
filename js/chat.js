@@ -17,10 +17,15 @@
   var lastDevice = "";
 
   var ACTIONS = {
-    quote: { label: "Get a free quote", run: function () { close(); window.TechCareQuote.open(lastDevice); } },
+    quote: { label: "Get a free quote", run: function () {
+      close();
+      if (window.TechCareQuote) window.TechCareQuote.open(lastDevice);
+      else location.href = "/#quote";   // pages without the form (e.g. reviews)
+    } },
     call: { label: "Call " + C.phone, href: C.phoneHref },
     email: { label: "Email us", href: "mailto:" + C.email },
-    directions: { label: "Get directions", href: C.mapsUrl, external: true }
+    directions: { label: "Get directions", href: C.mapsUrl, external: true },
+    reviews: { label: "See our reviews", href: "/reviews.html" }
   };
 
   /* ---------- open / close ---------- */
@@ -117,6 +122,8 @@
     return s.trim().split(" ").map(function (w) { return w.replace(/'s$/, "").replace(/s$/, ""); });
   }
 
+  var GENERIC = ["repair", "fix", "fixing", "service", "phone", "good", "best", "time"];
+
   function bestMatch(text) {
     var norm = normalize(text);
     var tokens = words(norm);
@@ -129,7 +136,9 @@
           if (norm.indexOf(key.trim()) > -1) score += 2;           // phrase hit
         } else {
           var stem = words(key)[0];
-          if (!seen[stem] && tokens.indexOf(stem) > -1) score += 1; // word hit ("card"/"cards" count once)
+          // word hit ("card"/"cards" count once); everyday words like "fix" count less
+          // so "do repairs have a warranty" lands on warranty, not the repairs overview
+          if (!seen[stem] && tokens.indexOf(stem) > -1) score += GENERIC.indexOf(stem) > -1 ? 0.5 : 1;
           seen[stem] = true;
         }
       });

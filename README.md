@@ -10,6 +10,8 @@ Plain HTML/CSS/JS — no build step, no frameworks — set up for hosting on Net
 - **Hobby shop** — Pokémon TCG products and buy / sell / trade
 - **FAQ** + **chat helper** — answers common questions instantly (no appointment booking)
 - **Visit** — live "open now" status, today's hours highlighted, map
+- **Reviews page** (`reviews.html`) — 4.9★ scoreboard, what customers mention most, and Google reviews shown as
+  holographic "trading cards" you can filter; 3 featured cards also appear on the home page
 
 ## Files
 
@@ -21,6 +23,9 @@ Plain HTML/CSS/JS — no build step, no frameworks — set up for hosting on Net
 | `js/faq-data.js` | FAQ questions & answers used by both the chat helper and the FAQ section |
 | `js/site.js` | Menu, open/closed status, quote form |
 | `js/chat.js` | Chat helper |
+| `reviews.html` | Reviews page |
+| `js/reviews-data.js` | Rating, review count, Google links and the review excerpts — **update the numbers here** |
+| `js/reviews.js` | Draws the review cards and the holo tilt effect |
 | `thanks.html` | Shown after a quote is sent if JavaScript is off |
 | `404.html` | Not-found page |
 | `netlify.toml` | Netlify settings |
@@ -47,12 +52,19 @@ If sending ever fails, the visitor is offered a pre-filled email and the phone n
 Open `js/faq-data.js`. Each entry has a question, an answer and a list of `keys` (words people might type).
 Set `onPage: true` to also show it in the FAQ section. The chat only answers from this file — it doesn't make things up.
 
-Answers that are deliberately general because the details weren't on the old site — worth confirming with the owner:
+A few answers are based on what customers say in Google reviews (warranty offered, parts ordered overnight with a
+deposit, laptops repaired). Others are deliberately general — worth confirming with the owner:
 
-- **Warranty** — currently says "ask us"; add the actual warranty terms if there are any.
+- **Warranty** — says repairs come with a warranty; add the actual length/terms if he wants them shown.
 - **Walk-ins** — says no appointment is needed; change if that's not the case.
-- **Pricing / turnaround** — says "depends on the model, free quote"; add typical prices if desired.
+- **Pricing / turnaround** — says "depends on the model, free quote" and "often under an hour"; add typical prices if desired.
 - **Online sales / shipping** — says products are sold in-store.
+
+## Updating reviews
+
+The rating (4.9) and count (218) live at the top of `js/reviews-data.js` — update them every so often and every page picks it up.
+To add a review card, copy an entry in `list`, paste a short excerpt from Google, and credit the reviewer as Google shows them
+(first name + last initial). Set `featured: true` on any 3 to show them on the home page.
 
 ## Run locally
 

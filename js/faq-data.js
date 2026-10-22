@@ -36,16 +36,16 @@ window.TECHCARE_FAQ = [
     id: "repairs",
     q: "What repairs do you do?",
     chip: "Repairs",
-    a: "We fix smartphones and tablets right here in the shop: <strong>cracked screens</strong>, <strong>battery replacements</strong>, <strong>charging port repairs</strong>, and <strong>diagnostics</strong> for other issues. Not sure what's wrong? We'll take a look and give you a free quote.",
-    keys: ["repair", "repairs", "fix", "fixing", "service", "services", "broken", "screen", "cracked", "battery", "charge", "charging", "port"],
+    a: "We fix smartphones and tablets right here in the shop: <strong>cracked screens</strong>, <strong>battery replacements</strong>, <strong>charging port repairs</strong>, <strong>back glass</strong>, home buttons, screen protectors and <strong>diagnostics</strong> for other issues. We work on laptops too. Not sure what's wrong? We'll take a look and give you a free quote.",
+    keys: ["repair", "repairs", "fix", "fixing", "service", "services", "broken", "screen", "cracked", "battery", "charge", "charging", "port", "back glass", "home button", "protector"],
     actions: ["quote"],
     onPage: true
   },
   {
     id: "devices",
     q: "Which phones and tablets do you work on?",
-    a: "Smartphones and tablets of all kinds. The fastest way to check your exact model is to send a quick quote request — tell us the device and what's wrong, and we'll let you know.",
-    keys: ["iphone", "samsung", "galaxy", "pixel", "google", "ipad", "tablet", "android", "apple", "motorola", "lg", "oneplus", "model", "brand"],
+    a: "Smartphones and tablets of all kinds — iPhone, Samsung, Motorola and more — plus laptops. The fastest way to check your exact model is to send a quick quote request — tell us the device and what's wrong, and we'll let you know.",
+    keys: ["iphone", "samsung", "galaxy", "pixel", "google", "ipad", "tablet", "android", "apple", "motorola", "moto", "lg", "oneplus", "model", "brand", "laptop", "computer", "macbook"],
     actions: ["quote"],
     onPage: false
   },
@@ -61,7 +61,7 @@ window.TECHCARE_FAQ = [
   {
     id: "time",
     q: "How long does a repair take?",
-    a: "Our repair bench is right here in the shop, so most common fixes are quick turnarounds. We'll give you a time estimate for your specific repair along with your quote.",
+    a: "Our repair bench is right here in the shop, so many common fixes — like screens and charging ports — are done while you wait, often in under an hour. We'll give you a time estimate for your specific repair along with your quote.",
     keys: ["how long", "long", "take", "turnaround", "same day", "wait", "today", "fast", "quick", "ready", "minutes", "hours long"],
     actions: ["quote"],
     onPage: true
@@ -93,9 +93,29 @@ window.TECHCARE_FAQ = [
   {
     id: "warranty",
     q: "Do your repairs come with a warranty?",
-    a: "Ask us about warranty coverage for your specific repair — we'll go over it with you when you get your quote or drop off your device.",
-    keys: ["warranty", "guarantee", "guaranteed", "if it breaks again"],
-    actions: ["call"],
+    a: "Yes — our repairs come with a warranty. We'll go over the coverage for your specific repair when you get your quote.",
+    keys: ["warranty", "guarantee", "guaranteed", "if it breaks again", "stops working", "failed"],
+    actions: ["quote", "call"],
+    onPage: true
+  },
+  {
+    id: "parts",
+    q: "What if you don't have the part for my phone?",
+    a: "We keep parts for lots of popular phones in stock and can order the rest — often arriving the next day. For ordered parts we ask for a small deposit to cover delivery; it goes toward your repair bill and isn't refundable.",
+    keys: ["part", "parts", "in stock part", "order", "ordered", "deposit", "genuine", "original", "oem"],
+    actions: ["quote", "call"],
+    onPage: false
+  },
+  {
+    id: "reviews",
+    q: "Are you any good?",
+    chip: "Reviews",
+    a: function () {
+      var R = window.TECHCARE_REVIEWS || { rating: 4.9, count: 218 };
+      return "We'll let our customers answer that: we're rated <strong>" + R.rating.toFixed(1) + "★ from " + R.count + " Google reviews</strong>. People mention our friendly staff, fast screen repairs and fair prices most.";
+    },
+    keys: ["review", "reviews", "rating", "rated", "stars", "good", "any good", "trust", "legit", "reliable", "recommend", "best"],
+    actions: ["reviews", "quote"],
     onPage: false
   },
   {
