@@ -21,20 +21,20 @@
     return h + (mm ? ":" + String(mm).padStart(2, "0") : "") + " " + suffix;
   }
 
-  // { open: bool, text: "Open now · until 7 pm" }
+  // { open: bool, text: "Open now · Until 7 pm" }
   function hoursStatus() {
     var now = shopNow(), today = C.hours[now.day];
     if (today && now.minutes >= toMin(today[0]) && now.minutes < toMin(today[1])) {
-      return { open: true, text: "Open now · until " + fmt(today[1]) };
+      return { open: true, text: "Open now · Until " + fmt(today[1]) };
     }
     if (today && now.minutes < toMin(today[0])) {
-      return { open: false, text: "Closed now · opens today at " + fmt(today[0]) };
+      return { open: false, text: "Closed now · Opens today at " + fmt(today[0]) };
     }
     for (var i = 1; i <= 7; i++) {
       var d = (now.day + i) % 7, h = C.hours[d];
       if (h) {
         var when = i === 1 ? "tomorrow" : DAY_NAMES[d];
-        return { open: false, text: "Closed now · opens " + when + " at " + fmt(h[0]) };
+        return { open: false, text: "Closed now · Opens " + when + " at " + fmt(h[0]) };
       }
     }
     return { open: false, text: "Closed now" };
