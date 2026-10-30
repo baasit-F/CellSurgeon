@@ -14,7 +14,6 @@ window.TECHCARE_REVIEWS = {
     { label: "Friendly staff", n: 50 },
     { label: "Screen repair", n: 22 },
     { label: "Reliable phone repair", n: 8 },
-    { label: "iPhone 15", n: 6 },
     { label: "Quick diagnosis", n: 5 },
     { label: "Laptop repair", n: 4 },
     { label: "Efficient repairs", n: 4 }

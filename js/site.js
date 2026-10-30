@@ -21,23 +21,24 @@
     return h + (mm ? ":" + String(mm).padStart(2, "0") : "") + " " + suffix;
   }
 
-  // { open: bool, text: "Open now · Until 7 pm" }
+  // { open: bool, text: "Open now · Until 7 pm", short: "Open · Until 7 pm" } (short fits phone screens)
   function hoursStatus() {
     var now = shopNow(), today = C.hours[now.day];
     if (today && now.minutes >= toMin(today[0]) && now.minutes < toMin(today[1])) {
-      return { open: true, text: "Open now · Until " + fmt(today[1]) };
+      return { open: true, text: "Open now · Until " + fmt(today[1]), short: "Open · Until " + fmt(today[1]) };
     }
     if (today && now.minutes < toMin(today[0])) {
-      return { open: false, text: "Closed now · Opens today at " + fmt(today[0]) };
+      return { open: false, text: "Closed now · Opens today at " + fmt(today[0]), short: "Closed · Opens " + fmt(today[0]) };
     }
     for (var i = 1; i <= 7; i++) {
       var d = (now.day + i) % 7, h = C.hours[d];
       if (h) {
         var when = i === 1 ? "tomorrow" : DAY_NAMES[d];
-        return { open: false, text: "Closed now · Opens " + when + " at " + fmt(h[0]) };
+        return { open: false, text: "Closed now · Opens " + when + " at " + fmt(h[0]),
+          short: "Closed · Opens " + (i === 1 ? "tomorrow" : DAY_NAMES[d].slice(0, 3)) + " " + fmt(h[0]) };
       }
     }
-    return { open: false, text: "Closed now" };
+    return { open: false, text: "Closed now", short: "Closed now" };
   }
   window.TechCareHours = { status: hoursStatus, now: shopNow, fmt: fmt };
 
@@ -48,6 +49,8 @@
       el.classList.toggle("is-open", s.open);
       el.classList.toggle("is-closed", !s.open);
       el.querySelector("[data-status-text]").textContent = s.text;
+      var short = el.querySelector("[data-status-short]");
+      if (short) short.textContent = s.short;
     }
     var day = shopNow().day;
     document.querySelectorAll("#hours tr[data-days]").forEach(function (tr) {
