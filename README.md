@@ -9,7 +9,7 @@ Plain HTML/CSS/JS — no build step, no frameworks — set up for hosting on Net
 - **Quote request form** — device/model, problem, name, phone, email (Netlify Forms)
 - **Hobby shop** — Pokémon TCG products and buy / sell / trade
 - **FAQ** + **chat helper** — answers common questions instantly
-- **Book page** (`book.html`) — month calendar with time slots built from the shop hours; appointment
+- **Schedule Repair page** (`book.html`) — month calendar with time slots built from the shop hours; appointment
   requests arrive in Netlify under Forms → "booking" and the shop confirms each one by text or call
 - **Visit** — live "open now" status, today's hours highlighted, map
 - **Reviews page** (`reviews.html`) — 4.9★ scoreboard, what customers mention most, and Google reviews shown as

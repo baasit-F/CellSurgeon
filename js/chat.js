@@ -26,7 +26,7 @@
     email: { label: "Email us", href: "mailto:" + C.email },
     directions: { label: "Get directions", href: C.mapsUrl, external: true },
     reviews: { label: "See our reviews", href: "/reviews.html" },
-    book: { label: "Book an appointment", href: "/book.html" }
+    book: { label: "Schedule a repair", href: "/book.html" }
   };
 
   /* ---------- open / close ---------- */
