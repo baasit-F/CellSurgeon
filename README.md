@@ -8,7 +8,9 @@ Plain HTML/CSS/JS — no build step, no frameworks — set up for hosting on Net
 - **Repairs** — services, free-quote callout, 3-step "how it works"
 - **Quote request form** — device/model, problem, name, phone, email (Netlify Forms)
 - **Hobby shop** — Pokémon TCG products and buy / sell / trade
-- **FAQ** + **chat helper** — answers common questions instantly (no appointment booking)
+- **FAQ** + **chat helper** — answers common questions instantly
+- **Book page** (`book.html`) — month calendar with time slots built from the shop hours; appointment
+  requests arrive in Netlify under Forms → "booking" and the shop confirms each one by text or call
 - **Visit** — live "open now" status, today's hours highlighted, map
 - **Reviews page** (`reviews.html`) — 4.9★ scoreboard, what customers mention most, and Google reviews shown as
   holographic "trading cards" you can filter; 3 featured cards also appear on the home page
@@ -23,6 +25,8 @@ Plain HTML/CSS/JS — no build step, no frameworks — set up for hosting on Net
 | `js/faq-data.js` | FAQ questions & answers used by both the chat helper and the FAQ section |
 | `js/site.js` | Menu, open/closed status, quote form |
 | `js/chat.js` | Chat helper |
+| `book.html` | Appointment booking page |
+| `js/booking.js` | Calendar, time slots and booking form (slot length, lead time, holidays: `booking` in `js/config.js`) |
 | `reviews.html` | Reviews page |
 | `js/reviews-data.js` | Rating, review count, Google links and the review excerpts — **update the numbers here** |
 | `js/reviews.js` | Draws the review cards and the holo tilt effect |
@@ -56,7 +60,7 @@ A few answers are based on what customers say in Google reviews (warranty offere
 deposit, laptops repaired). Others are deliberately general — worth confirming with the owner:
 
 - **Warranty** — says repairs come with a warranty; add the actual length/terms if he wants them shown.
-- **Walk-ins** — says no appointment is needed; change if that's not the case.
+- **Walk-ins** — says no appointment is needed, with a link to book online; change if that's not the case.
 - **Pricing / turnaround** — says "depends on the model, free quote" and "often under an hour"; add typical prices if desired.
 - **Online sales / shipping** — says products are sold in-store.
 
