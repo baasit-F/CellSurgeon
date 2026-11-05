@@ -77,9 +77,9 @@ window.TECHCARE_FAQ = [
   {
     id: "walkin",
     q: "Do I need an appointment?",
-    a: "No appointment needed — just stop by during open hours. If you'd like a price before you come in, send a quote request first.",
+    a: "No appointment needed — just stop by during open hours. If you'd rather lock in a time, you can <a href=\"/book.html\">book an appointment online</a>. Want a price first? Send a quote request.",
     keys: ["appointment", "book", "booking", "schedule", "reserve", "walk in", "walk-in", "walkin", "drop off", "drop-off", "come in", "stop by"],
-    actions: ["quote", "directions"],
+    actions: ["book", "quote", "directions"],
     onPage: true
   },
   {

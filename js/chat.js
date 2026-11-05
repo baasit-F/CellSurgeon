@@ -1,6 +1,6 @@
 /* Tech Care — FAQ chat helper.
    Runs entirely in the browser: it matches the visitor's question against
-   faq-data.js and replies with the best answer. No appointment booking. */
+   faq-data.js and replies with the best answer. Booking itself happens on book.html. */
 (function () {
   "use strict";
   var C = window.TECHCARE;
@@ -25,7 +25,8 @@
     call: { label: "Call " + C.phone, href: C.phoneHref },
     email: { label: "Email us", href: "mailto:" + C.email },
     directions: { label: "Get directions", href: C.mapsUrl, external: true },
-    reviews: { label: "See our reviews", href: "/reviews.html" }
+    reviews: { label: "See our reviews", href: "/reviews.html" },
+    book: { label: "Book an appointment", href: "/book.html" }
   };
 
   /* ---------- open / close ---------- */

@@ -23,5 +23,15 @@ window.TECHCARE = {
   // posted to the site itself and shows up under Forms → "quote" in the
   // Netlify dashboard. Turn on email alerts there (Forms → Form
   // notifications) to get each request in the shop's inbox.
-  quoteEndpoint: "/"
+  quoteEndpoint: "/",
+
+  // Appointment booking page (book.html). Requests arrive in Netlify under
+  // Forms → "booking"; the shop confirms each one by text or call.
+  booking: {
+    slotMinutes: 30,      // length of each time slot
+    lastSlotBeforeClose: 30, // no slot starts later than this many minutes before closing
+    leadMinutes: 60,      // earliest bookable time is this far from now
+    daysAhead: 30,        // how far ahead people can book
+    closedDates: []       // holidays etc., as "YYYY-MM-DD" strings, e.g. ["2026-12-25"]
+  }
 };
