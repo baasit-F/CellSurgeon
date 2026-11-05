@@ -2,10 +2,10 @@
    hours (js/config.js), and the request form (Netlify Forms → "booking"). */
 (function () {
   "use strict";
-  var C = window.TECHCARE, B = C.booking;
-  var MONTHS = ["January", "February", "March", "April", "May", "June", "July",
-    "August", "September", "October", "November", "December"];
-  var DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  var C = window.TECHCARE, S = window.TechCareSlots;
+  var MONTHS = S.MONTHS, key = S.key, weekday = S.weekday, slotsFor = S.slotsFor;
+  var fmtMin = S.fmtTime, niceDate = S.niceDate;
+  var R = S.range(), today = R.today, todayKey = R.todayKey, last = R.last;
 
   var calTitle = document.querySelector("[data-cal-title]");
   var grid = document.querySelector("[data-cal-grid]");
@@ -20,49 +20,6 @@
   var statusEl = form.querySelector(".form-status");
   var submitBtn = form.querySelector("button[type=submit]");
 
-  /* ---------- dates, always in the shop's time zone ---------- */
-  // Dates are plain {y, m (0-11), d}; keys are "YYYY-MM-DD".
-  function shopToday() {
-    var p = new Intl.DateTimeFormat("en-CA", { timeZone: C.timeZone, year: "numeric", month: "2-digit", day: "2-digit" })
-      .formatToParts(new Date());
-    var g = function (t) { return +p.find(function (x) { return x.type === t; }).value; };
-    return { y: g("year"), m: g("month") - 1, d: g("day") };
-  }
-  function key(y, m, d) { return y + "-" + String(m + 1).padStart(2, "0") + "-" + String(d).padStart(2, "0"); }
-  function weekday(y, m, d) { return new Date(Date.UTC(y, m, d)).getUTCDay(); }
-  function addDays(t, n) {
-    var dt = new Date(Date.UTC(t.y, t.m, t.d + n));
-    return { y: dt.getUTCFullYear(), m: dt.getUTCMonth(), d: dt.getUTCDate() };
-  }
-  function toMin(hhmm) { var p = hhmm.split(":"); return +p[0] * 60 + +p[1]; }
-  function fmtMin(m) {
-    var h = Math.floor(m / 60), mm = m % 60, suffix = h >= 12 ? "pm" : "am";
-    return (h % 12 || 12) + ":" + String(mm).padStart(2, "0") + " " + suffix;
-  }
-  function niceDate(k) {
-    var p = k.split("-").map(Number);
-    return DAYS[weekday(p[0], p[1] - 1, p[2])] + ", " + MONTHS[p[1] - 1] + " " + p[2];
-  }
-
-  var today = shopToday();
-  var todayKey = key(today.y, today.m, today.d);
-  var last = addDays(today, B.daysAhead);
-  var lastKey = key(last.y, last.m, last.d);
-
-  // Open start times (minutes after midnight) for a date key.
-  function slotsFor(k) {
-    if (k < todayKey || k > lastKey || B.closedDates.indexOf(k) > -1) return [];
-    var p = k.split("-").map(Number);
-    var hours = C.hours[weekday(p[0], p[1] - 1, p[2])];
-    if (!hours) return [];
-    var start = toMin(hours[0]), end = toMin(hours[1]) - B.lastSlotBeforeClose;
-    var earliest = 0;
-    if (k === todayKey) earliest = window.TechCareHours.now().minutes + B.leadMinutes;
-    var out = [];
-    for (var t = start; t <= end; t += B.slotMinutes) if (t >= earliest) out.push(t);
-    return out;
-  }
-
   /* ---------- calendar ---------- */
   var view = { y: today.y, m: today.m };
   var picked = { date: "", time: null };
@@ -73,7 +30,7 @@
     nextBtn.disabled = view.y > last.y || (view.y === last.y && view.m >= last.m);
     grid.innerHTML = "";
     var lead = weekday(view.y, view.m, 1);
-    var count = new Date(Date.UTC(view.y, view.m + 1, 0)).getUTCDate();
+    var count = S.daysInMonth(view.y, view.m);
     for (var i = 0; i < lead; i++) grid.appendChild(document.createElement("span"));
     for (var d = 1; d <= count; d++) {
       var k = key(view.y, view.m, d);
@@ -141,12 +98,8 @@
   });
 
   // Start on the first day that still has times.
-  (function pickFirst() {
-    for (var i = 0; i <= B.daysAhead; i++) {
-      var t = addDays(today, i), k = key(t.y, t.m, t.d);
-      if (slotsFor(k).length) { picked.date = k; view = { y: t.y, m: t.m }; break; }
-    }
-  })();
+  var first = S.firstOpenDay();
+  if (first) { picked.date = key(first.y, first.m, first.d); view = { y: first.y, m: first.m }; }
   renderCal(); renderSlots(); syncChosen();
 
   /* ---------- service chips ---------- */
