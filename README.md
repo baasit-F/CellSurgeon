@@ -8,7 +8,9 @@ Plain HTML/CSS/JS — no build step, no frameworks — set up for hosting on Net
 - **Repairs** — services, free-quote callout, 3-step "how it works"
 - **Quote request form** — device/model, problem, name, phone, email (Netlify Forms)
 - **Hobby shop** — Pokémon TCG products and buy / sell / trade
-- **FAQ** + **chat helper** — answers common questions instantly
+- **FAQ** + **chat helper** — answers common questions instantly, and can **schedule a repair** right in the chat:
+  a calendar, time slots, then a few questions about the problem (e.g. "does the display still work?",
+  "tried another cable?") — sent to the same Netlify "booking" form, with the answers in the notes
 - **Schedule Repair page** (`book.html`) — month calendar with time slots built from the shop hours; appointment
   requests arrive in Netlify under Forms → "booking" and the shop confirms each one by text or call
 - **Visit** — live "open now" status, today's hours highlighted, map
@@ -24,8 +26,9 @@ Plain HTML/CSS/JS — no build step, no frameworks — set up for hosting on Net
 | `js/config.js` | Phone, email, address, hours — **edit shop details here** |
 | `js/faq-data.js` | FAQ questions & answers used by both the chat helper and the FAQ section |
 | `js/site.js` | Menu, open/closed status, quote form |
-| `js/chat.js` | Chat helper |
+| `js/chat.js` | Chat helper, including scheduling (the per-problem questions are in `SERVICES` at the top of the scheduling section) |
 | `book.html` | Appointment booking page |
+| `js/slots.js` | Open days and time slots, shared by the Schedule Repair page and the chat |
 | `js/booking.js` | Calendar, time slots and booking form (slot length, lead time, holidays: `booking` in `js/config.js`) |
 | `reviews.html` | Reviews page |
 | `js/reviews-data.js` | Rating, review count, Google links and the review excerpts — **update the numbers here** |
