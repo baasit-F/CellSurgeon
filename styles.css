@@ -986,3 +986,8 @@ button { font: inherit; }
   .sticker-3 { font-size: 28px; left: -3%; top: 52%; }
   .sticker-1 small, .sticker-3 small { font-size: 13px; }
 }
+/* phones/tablets: give the hero photos + stickers more breathing room below the checklist */
+@media (max-width: 919px) {
+  .hero-art { margin-top: 36px; }
+  .hero-inner { padding-bottom: 76px; }
+}
