@@ -54,6 +54,15 @@ Netlify picks up the quote form automatically on deploy (it's tagged `data-netli
 Every request also shows up under **Forms → quote** in the Netlify dashboard. Spam is filtered with a hidden honeypot field.
 If sending ever fails, the visitor is offered a pre-filled email and the phone number instead.
 
+## Changing the current deal
+
+The "$70 or less on screen repairs" deal (excluding the iPhone 18 lineup / newest models) appears in a few places.
+Search the repo for `$70` to update or remove it: the hero badge, sticker and ticker in `index.html`, the deal cards
+(`id="deals"`), the `price` and `deal` answers in `js/faq-data.js`, and the cracked-screen tip in `js/chat.js`.
+
+Price matching and part options are described in the same deal cards, the FAQ (`pricematch`, `parts`) and the chat's
+`PARTS_Q` question. Keep the part-options wording about *choice of parts*. The repair work is always the same quality.
+
 ## Editing the chat helper / FAQ
 
 Open `js/faq-data.js`. Each entry has a question, an answer and a list of `keys` (words people might type).
