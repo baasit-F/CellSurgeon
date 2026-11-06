@@ -53,9 +53,35 @@ window.TECHCARE_FAQ = [
     id: "price",
     q: "How much does a repair cost?",
     chip: "Pricing",
-    a: "It depends on your device model and the part it needs, so we price each repair individually. Quotes are <strong>free with no obligation</strong> — send us your model and the problem and we'll get back to you with a price.",
+    a: "It depends on your device model and the part it needs. Right now <strong>screen repairs are $70 or less</strong> on every model except the iPhone 18 lineup and the very newest releases, because screens for those aren't available yet. We also <strong>price match</strong> official quotes from other repair shops, and offer a few part options at different prices. Quotes are <strong>free with no obligation</strong>.",
     keys: ["price", "prices", "pricing", "cost", "costs", "how much", "charge", "fee", "expensive", "cheap", "estimate", "quote", "$"],
     actions: ["quote", "call"],
+    onPage: true
+  },
+  {
+    id: "deal",
+    q: "Do you have any deals on screen repairs?",
+    chip: "Screen deal",
+    a: "Yes! Right now <strong>screen repairs are $70 or less</strong>. Every model qualifies except the iPhone 18 lineup and the very newest releases, because screens for those aren\'t available yet. Send your model for an exact price.",
+    keys: ["deal", "deals", "special", "specials", "promo", "promotion", "discount", "sale", "offer", "coupon", "$70", "70", "screen price", "screen cost"],
+    actions: ["book", "quote"],
+    onPage: false
+  },
+  {
+    id: "pricematch",
+    q: "Do you price match?",
+    chip: "Price match",
+    a: "Yes. Bring in an <strong>official quote from another repair provider</strong> and we'll match their price, with the same careful work you'd get from us anyway.",
+    keys: ["price match", "match", "matching", "beat", "competitor", "competitors", "another shop", "other shop", "cheaper somewhere", "lower price", "ubreakifix", "best buy"],
+    actions: ["quote", "call"],
+    onPage: true
+  },
+  {
+    id: "parts",
+    q: "Can I choose different parts to save money?",
+    a: "Yes. Every repair gets the <strong>same careful, high-quality work</strong> from our technicians. What you choose is the part: we'll show you a few options at different prices, from premium parts to more budget-friendly ones, and explain the difference so you can pick what fits.",
+    keys: ["part", "parts", "original", "oem", "genuine", "aftermarket", "quality", "options", "cheaper option", "budget", "afford", "affordable", "save money", "less expensive"],
+    actions: ["quote"],
     onPage: true
   },
   {

@@ -233,17 +233,25 @@
   var S = window.TechCareSlots;
 
   // Each service asks a few questions that help the tech prepare for the visit.
+  // Same work either way; only the part changes — keep this wording careful.
+  var PARTS_Q = {
+    q: "We offer a few part options at different prices. The repair work is the same high quality either way. Any preference?",
+    a: ["Premium parts", "Most budget-friendly", "Not sure, explain at the shop"]
+  };
   var SERVICES = [
-    { label: "Cracked screen", service: "Screen repair", device: true, qs: [
+    { label: "Cracked screen", service: "Screen repair", device: true,
+      tip: "Good news: screen repairs are <strong>$70 or less</strong> right now (except the iPhone 18 lineup and the very newest models).", qs: [
       { q: "Does the display still work under the crack?",
         a: ["Yes, just the glass is cracked", "Lines, spots or flickering", "Screen is black", "Touch isn't responding"] },
-      { q: "Is the back glass or camera lens cracked too?", a: ["Yes", "No", "Not sure"] }
+      { q: "Is the back glass or camera lens cracked too?", a: ["Yes", "No", "Not sure"] },
+      PARTS_Q
     ] },
     { label: "Battery", service: "Battery replacement", device: true, qs: [
       { q: "What's the battery doing?",
         a: ["Drains really fast", "Shuts off at random", "Looks swollen / screen lifting", "Won't turn on at all"],
         tips: { "Looks swollen / screen lifting": "⚠️ Please stop charging it and keep it somewhere cool. A swollen battery should be looked at soon." } },
-      { q: "Roughly how old is the phone?", a: ["Under 2 years", "2–4 years", "Older than that", "Not sure"] }
+      { q: "Roughly how old is the phone?", a: ["Under 2 years", "2–4 years", "Older than that", "Not sure"] },
+      PARTS_Q
     ] },
     { label: "Won't charge", service: "Charging port", device: true, qs: [
       { q: "What happens when you plug it in?",

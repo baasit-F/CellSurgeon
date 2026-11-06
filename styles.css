@@ -933,3 +933,41 @@ button { font: inherit; }
 .msg-choices.is-times button { text-align: center; padding: 6px 4px; }
 .msg-choices.is-times button:last-child { grid-column: 1 / -1; }
 .msg-choices.is-times[data-done] { display: flex; }
+
+/* ---------- deals: screen deal, price match, part options ---------- */
+.deal-pill {
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 22px; padding: 6px 14px 6px 6px;
+  background: var(--white); color: var(--ink); text-decoration: none; font-size: 16px;
+  border: 2px solid var(--ink); border-radius: 999px; box-shadow: 3px 3px 0 var(--ink);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.deal-pill:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--ink); }
+.deal-pill-tag {
+  background: #e5322d; color: var(--white); font-weight: 900; font-size: 12px; letter-spacing: 1px;
+  text-transform: uppercase; padding: 4px 10px; border-radius: 999px;
+}
+.deal-pill svg { width: 16px; height: 16px; flex: none; }
+.hero-copy .deal-pill + .hero-ctas { margin-top: 22px; }
+
+.deals { display: grid; gap: 16px; margin-top: 40px; }
+.deal {
+  background: var(--cream); border: 2px solid var(--ink); border-radius: var(--radius-lg);
+  padding: 24px; box-shadow: 4px 4px 0 var(--blue);
+}
+.deal-tag {
+  display: inline-block; font-size: 12px; font-weight: 900; letter-spacing: 1.2px; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 10px;
+}
+.deal h3 { font-size: 22px; font-weight: 900; line-height: 1.15; }
+.deal p:not(.deal-tag) { margin-top: 10px; color: var(--muted); }
+.deal-hot { background: var(--yellow); box-shadow: 6px 6px 0 var(--ink); }
+.deal-hot .deal-tag { color: var(--white); background: #e5322d; padding: 4px 10px; border-radius: 999px; border: 2px solid var(--ink); }
+.deal-hot h3 { font-size: 26px; font-style: italic; text-transform: uppercase; }
+.deal-price { display: block; font-size: 64px; line-height: .95; color: var(--blue); text-shadow: 3px 3px 0 var(--ink); }
+.deal-hot p:not(.deal-tag) { color: var(--ink); }
+.deal-hot .btn { margin-top: 18px; }
+.quote-perks { margin-top: 14px; font-size: 16px; max-width: 30em; }
+.quote-perks strong { color: var(--yellow); }
+@media (min-width: 760px) {
+  .deals { grid-template-columns: 1.15fr 1fr 1fr; align-items: stretch; }
+}
