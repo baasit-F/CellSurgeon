@@ -71,7 +71,7 @@ Set `onPage: true` to also show it in the FAQ section. The chat only answers fro
 A few answers are based on what customers say in Google reviews (warranty offered, parts ordered overnight with a
 deposit, laptops repaired). Others are deliberately general — worth confirming with the owner:
 
-- **Warranty** — standard lifetime warranty on parts that wear out or fail over time; physical damage (new cracks, drops, water) not covered. Shown in the hero checklist, the deal cards, the ticker and the `warranty` FAQ answer.
+- **Warranty** — standard lifetime warranty covering defects in materials (the part) and workmanship; accidental damage (drops, new cracks, water) and normal wear and tear are not covered. Shown in the hero checklist, the deal cards, the ticker and the `warranty` FAQ answer.
 - **Walk-ins** — says no appointment is needed, with a link to book online; change if that's not the case.
 - **Pricing / turnaround** — says "depends on the model, free quote" and "often under an hour"; add typical prices if desired.
 - **Online sales / shipping** — says products are sold in-store.
