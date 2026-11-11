@@ -119,8 +119,9 @@ window.TECHCARE_FAQ = [
   {
     id: "warranty",
     q: "Do your repairs come with a warranty?",
-    a: "Yes — our repairs come with a warranty. We'll go over the coverage for your specific repair when you get your quote.",
-    keys: ["warranty", "guarantee", "guaranteed", "if it breaks again", "stops working", "failed"],
+    chip: "Warranty",
+    a: "Yes! Every part we install comes with our standard <strong>lifetime warranty</strong>. If the part wears out or stops working over time, we'll replace it. It doesn't cover new physical damage, like dropping or cracking the phone again, or water damage.",
+    keys: ["warranty", "warranties", "lifetime", "guarantee", "guaranteed", "if it breaks again", "stops working", "failed", "wears out", "wear out", "covered", "coverage"],
     actions: ["quote", "call"],
     onPage: true
   },
