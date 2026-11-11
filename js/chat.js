@@ -265,11 +265,7 @@
       { q: "What kind of liquid was it?", a: ["Water", "Pool / salt water", "Soda, coffee or other"] }
     ] },
     { label: "Something else", service: "Diagnosis", device: true, qs: [],
-      free: "No problem. Tell me a bit about what's going on with it." },
-    { label: "Pokémon cards", service: "Pokémon cards — buy / sell / trade", device: false, qs: [
-      { q: "What are you looking to do?", a: ["Sell cards", "Trade", "Buy", "A bit of everything"] },
-      { q: "Roughly how much are you bringing in?", a: ["A few cards", "A binder or box", "A whole collection", "Nothing, just shopping"] }
-    ] }
+      free: "No problem. Tell me a bit about what's going on with it." }
   ];
 
   function esc(t) {
