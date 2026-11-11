@@ -32,6 +32,8 @@ Plain HTML/CSS/JS — no build step, no frameworks — set up for hosting on Net
 | `js/booking.js` | Calendar, time slots and booking form (slot length, lead time, holidays: `booking` in `js/config.js`) |
 | `reviews.html` | Reviews page |
 | `js/reviews-data.js` | Rating, review count, Google links and the review excerpts — **update the numbers here** |
+| `js/devices.js` | Phone / tablet models suggested in the "Device / model" dropdown — **add new models here** |
+| `js/device-picker.js` | The searchable device dropdown |
 | `js/reviews.js` | Draws the review cards and the holo tilt effect |
 | `thanks.html` | Shown after a quote is sent if JavaScript is off |
 | `404.html` | Not-found page |

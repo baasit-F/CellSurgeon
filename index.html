@@ -256,12 +256,7 @@
             <input type="hidden" name="form-name" value="quote">
             <div class="field">
               <label for="q-device">Device / model <span class="req" aria-hidden="true">*</span></label>
-              <input id="q-device" name="device" type="text" list="device-list" placeholder="e.g. iPhone 13, Galaxy S22, iPad 9th gen" autocomplete="off" required>
-              <datalist id="device-list">
-                <option value="iPhone 16 Pro Max"><option value="iPhone 16"><option value="iPhone 15 Pro"><option value="iPhone 15"><option value="iPhone 14"><option value="iPhone 13"><option value="iPhone 12"><option value="iPhone 11">
-                <option value="Samsung Galaxy S24"><option value="Samsung Galaxy S23"><option value="Samsung Galaxy S22"><option value="Samsung Galaxy A54"><option value="Google Pixel 8"><option value="Google Pixel 7">
-                <option value="iPad"><option value="Samsung Galaxy Tab">
-              </datalist>
+              <input id="q-device" name="device" type="text" data-device-picker placeholder="e.g. iPhone 13, Galaxy S22, iPad 9th gen" autocomplete="off" required>
               <p class="err" data-err-for="device"></p>
             </div>
 
@@ -450,6 +445,8 @@
   <script src="/js/faq-data.js"></script>
   <script src="/js/reviews-data.js"></script>
   <script src="/js/site.js"></script>
+  <script src="/js/devices.js"></script>
+  <script src="/js/device-picker.js"></script>
   <script src="/js/slots.js"></script>
   <script src="/js/reviews.js"></script>
   <script src="/js/chat.js"></script>
