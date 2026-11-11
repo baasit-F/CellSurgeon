@@ -935,7 +935,6 @@ button { font: inherit; }
 .msg-choices.is-times[data-done] { display: flex; }
 
 /* ---------- deals: screen deal, price match, part options ---------- */
-.hero-copy .hero-copy 
 .deals { display: grid; gap: 16px; margin-top: 40px; }
 .deal {
   background: var(--cream); border: 2px solid var(--ink); border-radius: var(--radius-lg);
@@ -956,10 +955,10 @@ button { font: inherit; }
 .quote-perks { margin-top: 14px; font-size: 16px; max-width: 30em; }
 .quote-perks strong { color: var(--yellow); }
 @media (min-width: 760px) {
-  .deals { grid-template-columns: 1.15fr 1fr 1fr; align-items: stretch; }
+  .deals { grid-template-columns: 1fr 1fr; align-items: stretch; }
 }
-.hero-copy @media (max-width: 380px) {
-  .hero-copy     .hero h1 { font-size: 34px; }
+@media (max-width: 380px) {
+  .hero h1 { font-size: 34px; }
 }
 
 /* hero stickers: screen deal + price match (eye-catching, link to the deal cards) */
@@ -985,4 +984,16 @@ button { font: inherit; }
   .sticker-1, .sticker-3 { width: 132px; height: 132px; font-size: 36px; }
   .sticker-3 { font-size: 28px; left: -3%; top: 52%; }
   .sticker-1 small, .sticker-3 small { font-size: 13px; }
+}
+/* phones/tablets: give the hero photos + stickers more breathing room below the checklist */
+@media (max-width: 919px) {
+  .hero-art { margin-top: 36px; }
+  .hero-inner { padding-bottom: 76px; }
+}
+.deal-warranty { background: var(--navy); box-shadow: 4px 4px 0 var(--yellow); }
+.deal-warranty .deal-tag { color: var(--yellow); }
+.deal-warranty h3 { color: var(--white); }
+.deal-warranty p:not(.deal-tag) { color: #c6cdee; }
+@media (min-width: 1100px) {
+  .deals { grid-template-columns: 1.2fr 1fr 1fr 1fr; }
 }
