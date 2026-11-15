@@ -1090,3 +1090,5 @@ button { font: inherit; }
   .header-call span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   .header-call svg { width: 20px; height: 20px; }
 }
+.lp-device svg.pad-art { width: 150px; height: auto; filter: drop-shadow(4px 4px 0 rgba(0,0,0,.35)); }
+@media (min-width: 920px) { .lp-device svg.pad-art { width: 200px; } }
