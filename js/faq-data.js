@@ -36,7 +36,7 @@ window.TECHCARE_FAQ = [
     id: "repairs",
     q: "What repairs do you do?",
     chip: "Repairs",
-    a: "We fix smartphones and tablets right here in the shop: <strong>cracked screens</strong>, <strong>battery replacements</strong>, <strong>charging port repairs</strong>, <strong>back glass</strong>, home buttons, screen protectors and <strong>diagnostics</strong> for other issues. We work on laptops too. Not sure what's wrong? We'll take a look and give you a free quote.",
+    a: "We fix <strong>phones and tablets</strong> (screens, batteries, charging ports, back glass), <strong>game consoles</strong> (PS5, PS4 and Xbox: HDMI ports, overheating, disc drives, controllers) and <strong>laptops</strong> (screens, batteries, charging, keyboards), all right here in the shop. Not sure what's wrong? We'll take a look and give you a free quote. <a href=\"/repairs.html\">See all repairs</a>.",
     keys: ["repair", "repairs", "fix", "fixing", "service", "services", "broken", "screen", "cracked", "battery", "charge", "charging", "port", "back glass", "home button", "protector"],
     actions: ["quote"],
     onPage: true
@@ -44,10 +44,28 @@ window.TECHCARE_FAQ = [
   {
     id: "devices",
     q: "Which phones and tablets do you work on?",
-    a: "Smartphones and tablets of all kinds — iPhone, Samsung, Motorola and more — plus laptops. The fastest way to check your exact model is to send a quick quote request — tell us the device and what's wrong, and we'll let you know.",
-    keys: ["iphone", "samsung", "galaxy", "pixel", "google", "ipad", "tablet", "android", "apple", "motorola", "moto", "lg", "oneplus", "model", "brand", "laptop", "computer", "macbook"],
+    a: "Smartphones and tablets of all kinds — iPhone, Samsung, Google Pixel, Motorola, iPad and more. <a href=\"/phone-repair.html\">See phone repairs</a>. The fastest way to check your exact model is to send a quick quote request — tell us the device and what's wrong, and we'll let you know.",
+    keys: ["iphone", "samsung", "galaxy", "pixel", "google", "ipad", "tablet", "android", "apple", "motorola", "moto", "lg", "oneplus", "model", "brand"],
     actions: ["quote"],
     onPage: false
+  },
+  {
+    id: "console",
+    q: "Do you repair PS5 and Xbox consoles?",
+    chip: "PS5 / Xbox",
+    a: "Yes! We repair <strong>PS5, PS4, Xbox Series X|S and Xbox One</strong>: HDMI port replacement (no picture), overheating and loud fans, disc drive problems, consoles that won't turn on, and controller stick drift. Diagnostics are free. <a href=\"/console-repair.html\">See console repairs</a>.",
+    keys: ["ps5", "ps4", "playstation", "xbox", "console", "consoles", "hdmi", "no signal", "no picture", "disc drive", "disc", "controller", "dualsense", "stick drift", "drift", "overheating", "overheat", "fan", "nintendo", "switch", "gaming"],
+    actions: ["book", "quote"],
+    onPage: true
+  },
+  {
+    id: "laptop",
+    q: "Do you repair laptops and MacBooks?",
+    chip: "Laptops",
+    a: "Yes! We repair <strong>MacBooks and Windows laptops</strong>: screen and battery replacement, charging and power problems, keyboards and trackpads, and SSD or RAM upgrades for slow laptops. Diagnostics are free. <a href=\"/laptop-repair.html\">See laptop repairs</a>.",
+    keys: ["laptop", "laptops", "computer", "macbook", "mac", "pc", "dell", "hp", "lenovo", "asus", "acer", "surface", "chromebook", "keyboard", "trackpad", "ssd", "ram", "slow", "notebook"],
+    actions: ["book", "quote"],
+    onPage: true
   },
   {
     id: "price",

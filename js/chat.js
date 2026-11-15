@@ -40,7 +40,7 @@
     launcher.setAttribute("aria-expanded", "true");
     if (!greeted) {
       greeted = true;
-      bot("Hi! 👋 I'm the Tech Care helper. Ask me about <strong>phone repairs</strong>, <strong>Pokémon cards</strong>, our <strong>hours</strong> — or I can <strong>schedule a repair</strong> for you.", ["book"]);
+      bot("Hi! 👋 I'm the Tech Care helper. Ask me about <strong>phone, console or laptop repairs</strong>, <strong>Pokémon cards</strong>, our <strong>hours</strong> — or I can <strong>schedule a repair</strong> for you.", ["book"]);
       renderSuggestions();
     }
     setTimeout(function () { input.focus(); }, 50);
@@ -167,13 +167,16 @@
     return best;
   }
 
-  var DEVICE_RE = /\b(iphone\s?(?:\d{1,2}|se|x[rs]?)(?:\s?(?:pro max|pro|plus|mini|max))?|galaxy\s?(?:[sazn]\d{1,3}\w*|note\s?\d+|tab\s?\w+)|pixel\s?\d\w*(?:\s?(?:pro|xl|a))?|ipad(?:\s?(?:pro|air|mini))?)s?\b/i;
+  var DEVICE_RE = /\b(iphone\s?(?:\d{1,2}|se|x[rs]?)(?:\s?(?:pro max|pro|plus|mini|max))?|galaxy\s?(?:[sazn]\d{1,3}\w*|note\s?\d+|tab\s?\w+)|pixel\s?\d\w*(?:\s?(?:pro|xl|a))?|ipad(?:\s?(?:pro|air|mini))?|ps\s?[45](?:\s?(?:pro|slim))?|playstation\s?[45]|xbox(?:\s?(?:series\s?[xs]|one))?|macbook(?:\s?(?:pro|air))?)s?\b/i;
   function detectDevice(text) {
     var m = text.match(DEVICE_RE);
     if (!m) return "";
     return m[1].replace(/\b(iphone)/i, "iPhone").replace(/\b(ipad)/i, "iPad")
       .replace(/\bgalaxy\s?([a-z])?/i, function (_, l) { return "Galaxy " + (l ? l.toUpperCase() : ""); })
       .replace(/\bpixel/i, "Pixel")
+      .replace(/\bps\s?([45])/i, "PS$1").replace(/\bplaystation\s?([45])/i, "PS$1")
+      .replace(/\bxbox/i, "Xbox").replace(/\bseries\s?([xs])\b/i, function (_, l) { return "Series " + l.toUpperCase(); }).replace(/\bone\b/i, "One")
+      .replace(/\bmacbook/i, "MacBook").replace(/\bslim\b/i, "Slim")
       .replace(/\b(pro|max|plus|mini|air)\b/gi, function (w) { return w[0].toUpperCase() + w.slice(1).toLowerCase(); });
   }
 
@@ -195,6 +198,11 @@
     }
 
     var f = forced || bestMatch(text);
+    // A named console or laptop beats the general repairs answer ("fix my macbook screen").
+    if (!forced && device && (!f || f.id === "repairs" || f.id === "devices")) {
+      var kind = /^(PS|Xbox)/.test(device) ? "console" : /^MacBook/.test(device) ? "laptop" : "";
+      if (kind) f = FAQ.find(function (x) { return x.id === kind; }) || f;
+    }
     if (!f) {
       return bot("Hmm, I'm not sure about that one. The team can help — give us a call at <a href=\"" + C.phoneHref + "\">" + C.phone +
         "</a>, or if it's about a repair, send a quote request and we'll get back to you.", ["quote", "call"]);
@@ -202,7 +210,7 @@
 
     var a = typeof f.a === "function" ? f.a() : f.a;
     // Someone named their phone while asking about a repair: point them straight at a quote.
-    if (device && ["repairs", "devices", "price", "time", "diagnostic", "water"].indexOf(f.id) > -1) {
+    if (device && ["repairs", "devices", "console", "laptop", "price", "time", "diagnostic", "water"].indexOf(f.id) > -1) {
       a += "<br><br>Want a price for your <strong>" + device + "</strong>? I can start the quote form for you.";
     }
     bot(a, f.actions);
@@ -263,6 +271,16 @@
       { q: "When did it get wet?", a: ["Today", "In the last few days", "Over a week ago"] },
       { q: "Does it turn on right now?", a: ["Yes", "No", "Haven't tried"] },
       { q: "What kind of liquid was it?", a: ["Water", "Pool / salt water", "Soda, coffee or other"] }
+    ] },
+    { label: "Game console", service: "Console repair (PS5 / Xbox)", device: true, qs: [
+      { q: "What's the console doing?",
+        a: ["No picture / HDMI", "Overheating or loud fan", "Disc drive problem", "Won't turn on", "Controller issue", "Something else"] },
+      { q: "Did anything happen before it started?", a: ["It was dropped or moved", "A power outage or surge", "Nothing, it just started", "Not sure"] }
+    ] },
+    { label: "Laptop", service: "Laptop repair", device: true, qs: [
+      { q: "What's going on with the laptop?",
+        a: ["Cracked or blank screen", "Battery / won't charge", "Won't turn on", "Keyboard or trackpad", "Running slow", "Something else"] },
+      { q: "Is there anything on it you need saved?", a: ["Yes, important files", "No, already backed up", "Not sure"] }
     ] },
     { label: "Something else", service: "Diagnosis", device: true, qs: [],
       free: "No problem. Tell me a bit about what's going on with it." }
@@ -451,14 +469,18 @@
     var opts = [];
     if (lastDevice) opts.push(lastDevice);
     opts.push("Not sure of the model");
-    step("Which phone or tablet is it? Type the model, like <em>iPhone 13</em> or <em>Galaxy S22</em>.", opts, function (v) {
+    var isOther = /console|laptop/i.test(flow.data.svc.service);
+    var ask = /console/i.test(flow.data.svc.service) ? "Which console is it? For example <em>PS5 Slim</em> or <em>Xbox Series X</em>."
+      : isOther ? "Which laptop is it? For example <em>MacBook Air</em> or <em>Dell XPS 13</em>."
+      : "Which phone or tablet is it? Type the model, like <em>iPhone 13</em> or <em>Galaxy S22</em>.";
+    step(ask, opts, function (v) {
       var named = detectDevice(v);
       flow.data.device = named || v;
       if (named) lastDevice = named;
       askQuestion(0);
     }, {
-      placeholder: "e.g. iPhone 13, Galaxy S22, iPad",
-      validate: function (t) { return t.length >= 2 || "Just the make and model is fine, like <em>iPhone 13</em>."; }
+      placeholder: isOther ? "e.g. PS5, Xbox Series X, MacBook Air" : "e.g. iPhone 13, Galaxy S22, iPad",
+      validate: function (t) { return t.length >= 2 || "Just the make and model is fine."; }
     });
   }
 

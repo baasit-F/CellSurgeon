@@ -3,14 +3,14 @@
    People can still type anything; the list only suggests. */
 (function () {
   "use strict";
-  var GROUPS = window.TECHCARE_DEVICES || [];
+  var ALL = window.TECHCARE_DEVICES || [];
   var uid = 0;
 
   function squash(s) { return s.toLowerCase().replace(/[^a-z0-9+]/g, ""); }
   function esc(s) { return s.replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
 
   // Every word typed must appear somewhere in "group words + model"; spaces don't matter ("15pro" = "15 Pro").
-  function search(q) {
+  function search(q, GROUPS) {
     var words = q.toLowerCase().split(/\s+/).map(squash).filter(Boolean);
     var joined = words.join(""), byLength = /\d/.test(joined);   // only once a model number is typed
     var out = [];
@@ -58,6 +58,10 @@
   }
 
   function attach(input) {
+    // data-device-picker="Game consoles" puts those groups first (landing pages); everything stays searchable
+    var want = (input.getAttribute("data-device-picker") || "").split(",").map(function (s) { return s.trim(); }).filter(Boolean);
+    var GROUPS = ALL.filter(function (g) { return want.indexOf(g.group) > -1; })
+      .concat(ALL.filter(function (g) { return want.indexOf(g.group) === -1; }));
     var id = "dp-" + (++uid);
     var wrap = document.createElement("div");
     wrap.className = "dp";
@@ -80,7 +84,7 @@
     var options = [], active = -1;
 
     function render() {
-      var r = search(input.value);
+      var r = search(input.value, GROUPS);
       options = [];
       list.innerHTML = "";
       r.groups.forEach(function (g) {
