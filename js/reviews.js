@@ -45,7 +45,13 @@
   /* ---------- home page teaser ---------- */
   var teaser = document.getElementById("review-teaser");
   if (teaser) {
-    teaser.innerHTML = R.list.map(function (r, i) { return r.featured ? card(r, i) : ""; }).join("");
+    var pick = (teaser.dataset.pick || "").split(",").filter(Boolean);
+    teaser.innerHTML = pick.length
+      ? pick.map(function (n) {
+          var i = R.list.findIndex(function (r) { return r.name === n; });
+          return i > -1 ? card(R.list[i], i) : "";
+        }).join("")
+      : R.list.map(function (r, i) { return r.featured ? card(r, i) : ""; }).join("");
   }
 
   /* ---------- reviews page: topic bars ---------- */

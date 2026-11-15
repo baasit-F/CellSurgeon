@@ -14,6 +14,11 @@ Plain HTML/CSS/JS — no build step, no frameworks — set up for hosting on Net
 - **Schedule Repair page** (`book.html`) — month calendar with time slots built from the shop hours; appointment
   requests arrive in Netlify under Forms → "booking" and the shop confirms each one by text or call
 - **Visit** — live "open now" status, today's hours highlighted, map
+- **Repair landing pages** — repair-only pages with no hobby-shop content, built for ads and search:
+  `repairs.html` (all repairs), `phone-repair.html`, `console-repair.html` (PS5 / Xbox) and `laptop-repair.html`.
+  Each has its own services, FAQ, reviews and quote form (requests are tagged with a `source` field), and its
+  "Schedule a drop-off" button pre-picks the service on `book.html`. The four pages share one layout, so keep
+  them in step when editing one. **Point each ad at the matching page.**
 - **Reviews page** (`reviews.html`) — 4.9★ scoreboard, what customers mention most, and Google reviews shown as
   holographic "trading cards" you can filter; 3 featured cards also appear on the home page
 

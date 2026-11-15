@@ -111,6 +111,11 @@
       setError("service", "");
     });
   });
+  // Landing pages link here with ?service=console (or laptop / screen) to pre-pick the chip.
+  var wanted = new URLSearchParams(location.search).get("service");
+  var pre = wanted && form.querySelector('.chip[data-key="' + wanted.replace(/[^a-z]/g, "") + '"]');
+  if (pre) pre.click();
+
   form.elements.service.addEventListener("input", function () {
     form.querySelectorAll(".chip").forEach(function (c) {
       c.setAttribute("aria-pressed", String(c.dataset.service === form.elements.service.value));

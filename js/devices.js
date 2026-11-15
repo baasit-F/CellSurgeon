@@ -33,7 +33,13 @@ window.TECHCARE_DEVICES = [
     "iPad Pro", "iPad Air", "iPad mini", "iPad (10th / 11th gen)", "iPad (9th gen or older)",
     "Samsung Galaxy Tab", "Other tablet"
   ] },
-  { group: "Laptops & more", also: "computer", models: [
-    "MacBook", "Windows laptop", "Not sure / something else"
+  { group: "Game consoles", also: "console playstation sony microsoft gaming controller", models: [
+    "PS5", "PS5 Slim", "PS5 Pro", "PS5 Digital Edition", "PS4 / PS4 Pro",
+    "Xbox Series X", "Xbox Series S", "Xbox One",
+    "PS5 DualSense controller", "Xbox controller", "Other console"
+  ] },
+  { group: "Laptops & more", also: "computer laptop apple", models: [
+    "MacBook Air", "MacBook Pro", "Dell laptop", "HP laptop", "Lenovo laptop", "ASUS laptop", "Acer laptop",
+    "Microsoft Surface", "Chromebook", "Other Windows laptop", "Not sure / something else"
   ] }
 ];

@@ -43,7 +43,7 @@
       </a>
 
       <nav class="nav" id="nav" aria-label="Main">
-        <a href="/#repairs">Repairs</a>
+        <a href="/repairs.html">Repairs</a>
         <a href="/#shop">Hobby Shop</a>
         <a href="/reviews.html">Reviews</a>
         <a href="/#faq">FAQ</a>
@@ -65,7 +65,7 @@
       <div class="wrap bk-hero-inner">
         <p class="eyebrow eyebrow-yellow">Appointments</p>
         <h1>Schedule your <span class="hl-yellow">repair</span>.</h1>
-        <p class="lede">Pick a day and time to bring your device in. We'll text or call to confirm. Walk-ins are still welcome any time we're open.</p>
+        <p class="lede">Pick a day and time to bring in your phone, tablet, console or laptop. We'll text or call to confirm. Walk-ins are still welcome any time we're open.</p>
       </div>
     </section>
 
@@ -113,10 +113,12 @@
             <div class="field">
               <label for="b-service">What do you need? <span class="req" aria-hidden="true">*</span></label>
               <div class="chips" role="group" aria-label="Service">
-                <button type="button" class="chip" data-service="Screen repair">Screen</button>
+                <button type="button" class="chip" data-service="Screen repair" data-key="screen">Screen</button>
                 <button type="button" class="chip" data-service="Battery replacement">Battery</button>
                 <button type="button" class="chip" data-service="Charging port">Charging port</button>
                 <button type="button" class="chip" data-service="Water damage">Water damage</button>
+                <button type="button" class="chip" data-service="Console repair (PS5 / Xbox)" data-key="console">Game console</button>
+                <button type="button" class="chip" data-service="Laptop repair" data-key="laptop">Laptop</button>
                 <button type="button" class="chip" data-service="Diagnosis — not sure">Not sure</button>
               </div>
               <input id="b-service" name="service" type="text" placeholder="Or type it here" autocomplete="off" required>
@@ -125,7 +127,7 @@
 
             <div class="field">
               <label for="b-device">Device / model</label>
-              <input id="b-device" name="device" type="text" data-device-picker placeholder="e.g. iPhone 13, Galaxy S22" autocomplete="off">
+              <input id="b-device" name="device" type="text" data-device-picker placeholder="e.g. iPhone 13, PS5, MacBook Air" autocomplete="off">
             </div>
 
             <div class="field">
@@ -182,7 +184,8 @@
     <div class="wrap footer-inner">
       <div>
         <p class="footer-brand">TECH <span>⚡</span> CARE</p>
-        <p>Phone Repair &amp; Pokémon Hobby Shop</p>
+        <p>Phone, Console &amp; Laptop Repair · Pokémon Hobby Shop</p>
+        <p class="footer-links"><a href="/repairs.html">All repairs</a> · <a href="/phone-repair.html">Phones</a> · <a href="/console-repair.html">Consoles</a> · <a href="/laptop-repair.html">Laptops</a></p>
       </div>
       <div>
         <p>4720 Kirkwood Hwy, Wilmington, DE 19808</p>
