@@ -1092,3 +1092,19 @@ button { font: inherit; }
 }
 .lp-device svg.pad-art { width: 150px; height: auto; filter: drop-shadow(4px 4px 0 rgba(0,0,0,.35)); }
 @media (min-width: 920px) { .lp-device svg.pad-art { width: 200px; } }
+
+/* ---------- privacy policy ---------- */
+.legal { background: var(--cream); }
+.legal-body {
+  max-width: 760px; margin: 0 auto; background: var(--paper);
+  border: 3px solid var(--ink); border-radius: var(--radius-lg); box-shadow: 8px 8px 0 var(--ink);
+  padding: 28px 22px;
+}
+.legal-updated { color: var(--muted); font-size: 14px; font-weight: 700; }
+.legal-body h2 { font-size: 24px; font-weight: 900; font-style: italic; text-transform: uppercase; margin-top: 34px; }
+.legal-body h3 { font-size: 18px; font-weight: 800; margin-top: 20px; }
+.legal-body p, .legal-body ul { margin-top: 10px; }
+.legal-body ul { padding-left: 22px; }
+.legal-body li + li { margin-top: 6px; }
+.legal-body a { font-weight: 700; }
+@media (min-width: 600px) { .legal-body { padding: 40px 44px; } }
